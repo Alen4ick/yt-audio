@@ -1,0 +1,33 @@
+# Secrets and local configuration
+xray-config.json
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Python virtual environments
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Runtime files
+*.log
+*.pid
+
+# Editor and backup files
+*.save
+*.backup
+*~
+.vscode/
+.idea/
+
+# OS-generated files
+.DS_Store

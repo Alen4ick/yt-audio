@@ -1,0 +1,17 @@
+[Unit]
+Description=YouTube Audio backend
+Wants=network-online.target xray.service
+After=network-online.target xray.service
+
+[Service]
+Type=exec
+User=sys_yt_aud
+Group=sys_yt_aud
+WorkingDirectory=/opt/yt-audio
+EnvironmentFile=/etc/yt-audio/environment
+ExecStart=/opt/yt-audio/venv/bin/uvicorn app:app --host 127.0.0.1 --port 3250
+Restart=on-failure
+RestartSec=3s
+
+[Install]
+WantedBy=multi-user.target

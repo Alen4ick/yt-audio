@@ -1,0 +1,30 @@
+services:
+  frontend:
+    image: nginx:alpine
+    container_name: yt-audio-frontend
+    ports:
+      - "127.0.0.1:3230:80"
+    volumes:
+      - "./frontend:/usr/share/nginx/html:ro"
+    restart: unless-stopped
+
+  xray:
+    image: ghcr.io/xtls/xray-core:latest
+    container_name: yt-audio-xray
+    command: ["run", "-config", "/etc/xray/config.json"]
+    volumes:
+      - "./xray-config.json:/etc/xray/config.json:ro"
+    ports:
+      - "127.0.0.1:3240:8000"
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+    container_name: yt-audio-backend
+    network_mode: "service:xray"
+    depends_on:
+      - xray
+    environment:
+      YT_PROXY: "socks5://127.0.0.1:10808"
+    restart: unless-stopped
