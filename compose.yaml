@@ -56,6 +56,14 @@ services:
       - jot_data:/app/data
     restart: unless-stopped
 
+  blackbox:
+    image: quay.io/prometheus/blackbox-exporter:v0.28.0
+    command:
+      - "--config.file=/etc/blackbox/blackbox.yml"
+    volumes:
+      - "./monitoring/blackbox.yml:/etc/blackbox/blackbox.yml:ro"
+    restart: unless-stopped
+
   prometheus:
     image: prom/prometheus:v3.14.0
     command:
