@@ -76,7 +76,7 @@
       player.removeAttribute("src");
 
       try {
-        const response = await fetch("/api/resolve", {
+        const response = await fetch("./api/resolve", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify({url: urlInput.value})
@@ -89,7 +89,7 @@
         }
 
         title.textContent = data.title;
-        player.src = data.audio_url;
+        player.src = "." +  data.audio_url;
         player.hidden = false;
         player.load();
 
